@@ -1,7 +1,8 @@
-import { View, StyleSheet, Pressable } from 'react-native';
 import Constants from 'expo-constants';
-import Text from './Text';
+import { Pressable, StyleSheet, View } from 'react-native';
+import { useLocation, useNavigate } from 'react-router-native';
 import theme from '../theme';
+import Text from './Text';
 
 const styles = StyleSheet.create({
   container: {
@@ -12,13 +13,27 @@ const styles = StyleSheet.create({
   },
   item: {
     flexGrow: 1,
+    alignItems: 'center',
     padding: 12,
   },
 });
 
-const AppBarItem = ({ children, onPress }) => {
+const AppBarItem = ({ children, onPress, path }) => {
+  const navigateTo = useNavigate();
+  const location = useLocation();
+  const currentPath = location.pathname;
+
   return (
-    <Pressable style={styles.item} onPress={onPress}>
+    <Pressable
+      onPress={() => navigateTo(path)}
+      style={[
+        {
+          backgroundColor:
+            currentPath === path ? theme.colors.secondary : 'transparent',
+        },
+        styles.item,
+      ]}
+    >
       <Text fontSize={'heading'}>{children}</Text>
     </Pressable>
   );
@@ -27,7 +42,8 @@ const AppBarItem = ({ children, onPress }) => {
 const AppBar = () => {
   return (
     <View style={styles.container}>
-      <AppBarItem onPress={() => {}}>Repositories</AppBarItem>
+      <AppBarItem path={'/'}>Repositories</AppBarItem>
+      <AppBarItem path={'/signin'}>Sign in</AppBarItem>
     </View>
   );
 };
