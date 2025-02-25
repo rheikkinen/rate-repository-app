@@ -1,5 +1,5 @@
 import Constants from 'expo-constants';
-import { Pressable, StyleSheet, View } from 'react-native';
+import { Pressable, ScrollView, StyleSheet, View } from 'react-native';
 import { useLocation, useNavigate } from 'react-router-native';
 import theme from '../theme';
 import Text from './Text';
@@ -42,8 +42,10 @@ const AppBarItem = ({ children, onPress, path }) => {
 const AppBar = () => {
   return (
     <View style={styles.container}>
-      <AppBarItem path={'/'}>Repositories</AppBarItem>
-      <AppBarItem path={'/signin'}>Sign in</AppBarItem>
+      <ScrollView horizontal contentContainerStyle={{ flexGrow: 1 }}>
+        <AppBarItem path={'/'}>Repositories</AppBarItem>
+        <AppBarItem path={'/signin'}>Sign in</AppBarItem>
+      </ScrollView>
     </View>
   );
 };
