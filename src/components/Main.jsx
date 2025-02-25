@@ -1,11 +1,11 @@
-import Constants from 'expo-constants';
 import { StyleSheet, View } from 'react-native';
-import RepositoryList from './RepositoryList';
-import Text from './Text';
 import AppBar from './AppBar';
+import RepositoryList from './RepositoryList';
+import theme from '../theme';
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: theme.colors.background.primary,
     flexGrow: 1,
     flexShrink: 1,
   },
