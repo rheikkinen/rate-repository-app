@@ -2,6 +2,14 @@ import { useFormik } from 'formik';
 import { StyleSheet, TextInput, View } from 'react-native';
 import theme from '../theme';
 import Button from './Button';
+import Text from './Text';
+
+import * as yup from 'yup';
+
+const validationSchema = yup.object().shape({
+  username: yup.string().required('Username is required'),
+  password: yup.string().required('Password is required'),
+});
 
 const initialValues = {
   username: '',
@@ -40,24 +48,51 @@ const styles = StyleSheet.create({
 const SignInForm = ({ onSubmit }) => {
   const formik = useFormik({
     initialValues,
+    validationSchema,
     onSubmit,
   });
 
+  const isInvalid = (field) => {
+    return formik.touched[field] && formik.errors[field];
+  };
+
   return (
     <View style={styles.formContainer}>
-      <TextInput
-        style={styles.formInputItem}
-        placeholder='Username'
-        value={formik.values.username}
-        onChangeText={formik.handleChange('username')}
-      />
-      <TextInput
-        style={styles.formInputItem}
-        placeholder='Password'
-        secureTextEntry
-        value={formik.values.password}
-        onChangeText={formik.handleChange('password')}
-      />
+      <View>
+        <TextInput
+          style={[
+            styles.formInputItem,
+            {
+              borderColor: isInvalid('username') ? 'red' : '#d3d3d3',
+            },
+          ]}
+          placeholder='Username'
+          value={formik.values.username}
+          onChangeText={formik.handleChange('username')}
+        />
+        {isInvalid('username') && (
+          <Text style={{ color: 'red', marginVertical: 4 }}>
+            {formik.errors.username}
+          </Text>
+        )}
+      </View>
+      <View>
+        <TextInput
+          style={[
+            styles.formInputItem,
+            { borderColor: isInvalid('password') ? 'red' : '#d3d3d3' },
+          ]}
+          placeholder='Password'
+          secureTextEntry
+          value={formik.values.password}
+          onChangeText={formik.handleChange('password')}
+        />
+        {isInvalid('password') && (
+          <Text style={{ color: 'red', marginVertical: 4 }}>
+            {formik.errors.password}
+          </Text>
+        )}
+      </View>
       <Button size='large' onPress={formik.handleSubmit}>
         Sign in
       </Button>
