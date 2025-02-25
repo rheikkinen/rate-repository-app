@@ -7,7 +7,7 @@ import Text from './Text';
 const styles = StyleSheet.create({
   container: {
     paddingTop: Constants.statusBarHeight,
-    backgroundColor: theme.colors.background.primary,
+    backgroundColor: 'white',
     display: 'flex',
     flexDirection: 'row',
   },
