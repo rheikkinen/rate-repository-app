@@ -1,7 +1,7 @@
 import { useFormik } from 'formik';
-import { TextInput, Pressable, View, StyleSheet } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 import theme from '../theme';
-import Text from './Text';
+import Button from './Button';
 
 const initialValues = {
   username: '',
@@ -15,7 +15,9 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   formInputItem: {
+    backgroundColor: 'white',
     borderWidth: 1,
+    borderColor: '#d3d3d3',
     borderRadius: 8,
     padding: 12,
     height: 64,
@@ -56,9 +58,9 @@ const SignInForm = ({ onSubmit }) => {
         value={formik.values.password}
         onChangeText={formik.handleChange('password')}
       />
-      <Pressable style={styles.submitButton} onPress={formik.handleSubmit}>
-        <Text style={styles.buttonLabel}>Sign in</Text>
-      </Pressable>
+      <Button size='large' onPress={formik.handleSubmit}>
+        Sign in
+      </Button>
     </View>
   );
 };
