@@ -27,7 +27,7 @@ export default {
       favicon: './assets/favicon.png',
     },
     extra: {
-      apiUri: process.env.API_URI,
+      apolloUri: process.env.APOLLO_URI,
     },
   },
 };
