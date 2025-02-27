@@ -1,6 +1,6 @@
 import { Pressable, StyleSheet, Text } from 'react-native';
 
-import theme from '../theme';
+import theme from '../../theme';
 
 const styles = StyleSheet.create({
   button: {
