@@ -6,6 +6,7 @@ import Text from './Text';
 
 import * as yup from 'yup';
 import useSignIn from '../hooks/useSignIn';
+import { useNavigate } from 'react-router-native';
 
 const validationSchema = yup.object().shape({
   username: yup.string().required('Username is required'),
@@ -103,6 +104,7 @@ const SignInForm = ({ onSubmit }) => {
 
 const SignIn = () => {
   const [signIn] = useSignIn();
+  const navigateTo = useNavigate();
 
   const onSubmit = async (values) => {
     const { username, password } = values;
@@ -110,6 +112,7 @@ const SignIn = () => {
     try {
       const { data } = await signIn({ username, password });
       console.log(data);
+      navigateTo('/');
     } catch (error) {
       console.error(error);
     }
