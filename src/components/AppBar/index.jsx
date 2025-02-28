@@ -2,6 +2,7 @@ import Constants from 'expo-constants';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import useSession from '../../hooks/useSession';
 import AppBarItem from './AppBarItem';
+import theme from '../../theme';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,7 +25,10 @@ const AppBar = () => {
           <AppBarItem path={'/signin'}>Sign in</AppBarItem>
         )}
         {currentUser && !loading && (
-          <AppBarItem textStyle={{ color: 'red' }} onPress={signOut}>
+          <AppBarItem
+            textStyle={{ color: theme.colors.textError }}
+            onPress={signOut}
+          >
             Sign out
           </AppBarItem>
         )}

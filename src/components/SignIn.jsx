@@ -45,6 +45,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: theme.fontWeights.bold,
   },
+  error: {
+    color: theme.colors.textError,
+    marginVertical: 4,
+  },
 });
 
 const SignInForm = ({ onSubmit }) => {
@@ -65,7 +69,9 @@ const SignInForm = ({ onSubmit }) => {
           style={[
             styles.formInputItem,
             {
-              borderColor: isInvalid('username') ? 'red' : '#d3d3d3',
+              borderColor: isInvalid('username')
+                ? theme.colors.textError
+                : '#d3d3d3',
             },
           ]}
           placeholder='Username'
@@ -73,16 +79,18 @@ const SignInForm = ({ onSubmit }) => {
           onChangeText={formik.handleChange('username')}
         />
         {isInvalid('username') && (
-          <Text style={{ color: 'red', marginVertical: 4 }}>
-            {formik.errors.username}
-          </Text>
+          <Text style={styles.error}>{formik.errors.username}</Text>
         )}
       </View>
       <View>
         <TextInput
           style={[
             styles.formInputItem,
-            { borderColor: isInvalid('password') ? 'red' : '#d3d3d3' },
+            {
+              borderColor: isInvalid('password')
+                ? theme.colors.textError
+                : '#d3d3d3',
+            },
           ]}
           placeholder='Password'
           secureTextEntry
@@ -90,9 +98,7 @@ const SignInForm = ({ onSubmit }) => {
           onChangeText={formik.handleChange('password')}
         />
         {isInvalid('password') && (
-          <Text style={{ color: 'red', marginVertical: 4 }}>
-            {formik.errors.password}
-          </Text>
+          <Text style={styles.error}>{formik.errors.password}</Text>
         )}
       </View>
       <Button size='large' onPress={formik.handleSubmit}>

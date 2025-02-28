@@ -4,6 +4,7 @@ const theme = {
   colors: {
     textPrimary: '#24292e',
     textSecondary: '#586069',
+    textError: 'red',
     primary: '#0366d6',
     secondary: '#aad2ff',
     pressed: '#7cb0ff',
