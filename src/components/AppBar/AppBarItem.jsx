@@ -9,25 +9,39 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     padding: 12,
   },
+  pressed: {
+    backgroundColor: theme.colors.pressed,
+  },
 });
 
-const AppBarItem = ({ children, onPress, path }) => {
+const AppBarItem = ({ children, onPress, path, textStyle }) => {
   const navigateTo = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
 
+  const handlePress = async () => {
+    if (typeof onPress === 'function') {
+      await onPress();
+    }
+
+    if (path) navigateTo(path);
+  };
+
   return (
     <Pressable
-      onPress={() => navigateTo(path)}
-      style={[
+      onPress={handlePress}
+      style={({ pressed }) => [
         {
           backgroundColor:
             currentPath === path ? theme.colors.secondary : 'transparent',
         },
         styles.item,
+        pressed && styles.pressed,
       ]}
     >
-      <Text fontSize={'heading'}>{children}</Text>
+      <Text style={textStyle} fontSize={'heading'}>
+        {children}
+      </Text>
     </Pressable>
   );
 };
