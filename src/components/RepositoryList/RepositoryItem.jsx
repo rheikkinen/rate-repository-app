@@ -46,18 +46,18 @@ const styles = StyleSheet.create({
   },
 });
 
+export const formatCount = (count) => {
+  if (count > 1000) {
+    const n = (count / 1000.0).toFixed(1);
+    return `${n}k`;
+  }
+
+  return count;
+};
+
 const RepositoryItem = ({ item }) => {
-  const formatCount = (count) => {
-    if (count > 1000) {
-      const n = (count / 1000.0).toFixed(1);
-      return `${n}k`;
-    }
-
-    return count;
-  };
-
   return (
-    <View style={styles.repositoryCard}>
+    <View testID='repositoryItem' style={styles.repositoryCard}>
       <View style={styles.topContent}>
         <Image style={styles.avatar} source={{ uri: item.ownerAvatarUrl }} />
         <View style={styles.repositoryDetails}>
@@ -71,19 +71,19 @@ const RepositoryItem = ({ item }) => {
         </View>
       </View>
       <View style={styles.bottomContent}>
-        <View style={styles.countItem}>
+        <View testID='stargazersCount' style={styles.countItem}>
           <Text fontWeight={'bold'}>{formatCount(item.stargazersCount)}</Text>
           <Text color={'textSecondary'}>Stars</Text>
         </View>
-        <View style={styles.countItem}>
+        <View testID='forksCount' style={styles.countItem}>
           <Text fontWeight={'bold'}>{formatCount(item.forksCount)}</Text>
           <Text color={'textSecondary'}>Forks</Text>
         </View>
-        <View style={styles.countItem}>
+        <View testID='reviewCount' style={styles.countItem}>
           <Text fontWeight={'bold'}>{formatCount(item.reviewCount)}</Text>
           <Text color={'textSecondary'}>Reviews</Text>
         </View>
-        <View style={styles.countItem}>
+        <View testID='ratingAverage' style={styles.countItem}>
           <Text fontWeight={'bold'}>{item.ratingAverage}</Text>
           <Text color={'textSecondary'}>Rating</Text>
         </View>
