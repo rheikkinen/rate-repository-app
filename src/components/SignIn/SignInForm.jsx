@@ -1,12 +1,9 @@
 import { useFormik } from 'formik';
 import { StyleSheet, TextInput, View } from 'react-native';
-import theme from '../theme';
-import Button from './Button';
-import Text from './Text';
-
 import * as yup from 'yup';
-import useSignIn from '../hooks/useSignIn';
-import { useNavigate } from 'react-router-native';
+import theme from '../../theme';
+import Button from '../Button';
+import Text from '../Text';
 
 const validationSchema = yup.object().shape({
   username: yup.string().required('Username is required'),
@@ -101,30 +98,11 @@ const SignInForm = ({ onSubmit }) => {
           <Text style={styles.error}>{formik.errors.password}</Text>
         )}
       </View>
-      <Button size='large' onPress={formik.handleSubmit}>
+      <Button testID='submitButton' size='large' onPress={formik.handleSubmit}>
         Sign in
       </Button>
     </View>
   );
 };
 
-const SignIn = () => {
-  const [signIn] = useSignIn();
-  const navigateTo = useNavigate();
-
-  const onSubmit = async (values) => {
-    const { username, password } = values;
-
-    try {
-      const { data } = await signIn({ username, password });
-      console.log(data);
-      navigateTo('/');
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  return <SignInForm onSubmit={onSubmit} />;
-};
-
-export default SignIn;
+export default SignInForm;
