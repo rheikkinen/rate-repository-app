@@ -12,6 +12,9 @@ const styles = StyleSheet.create({
   pressed: {
     backgroundColor: theme.colors.pressed,
   },
+  active: {
+    backgroundColor: theme.colors.secondary,
+  },
 });
 
 const AppBarItem = ({ children, onPress, path, textStyle }) => {
@@ -31,11 +34,8 @@ const AppBarItem = ({ children, onPress, path, textStyle }) => {
     <Pressable
       onPress={handlePress}
       style={({ pressed }) => [
-        {
-          backgroundColor:
-            currentPath === path ? theme.colors.secondary : 'transparent',
-        },
         styles.item,
+        currentPath === path && styles.active,
         pressed && styles.pressed,
       ]}
     >
