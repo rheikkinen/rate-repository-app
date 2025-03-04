@@ -13,7 +13,8 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background.pressed,
   },
   active: {
-    backgroundColor: theme.colors.secondary,
+    borderBottomColor: theme.colors.primary,
+    borderBottomWidth: 3,
   },
 });
 
@@ -39,7 +40,11 @@ const AppBarItem = ({ children, onPress, path, textStyle }) => {
         pressed && styles.pressed,
       ]}
     >
-      <Text style={textStyle} fontSize={'heading'}>
+      <Text
+        style={textStyle}
+        color={currentPath === path ? 'primary' : 'textPrimary'}
+        fontSize={'heading'}
+      >
         {children}
       </Text>
     </Pressable>
