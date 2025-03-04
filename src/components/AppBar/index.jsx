@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     display: 'flex',
     flexDirection: 'row',
-    elevation: 3,
+    elevation: 5,
   },
 });
 
