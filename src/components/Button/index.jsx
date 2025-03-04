@@ -22,6 +22,9 @@ const styles = StyleSheet.create({
   textPrimary: {
     color: 'white',
   },
+  pressed: {
+    backgroundColor: theme.colors.background.pressed,
+  },
 });
 
 const Button = ({ variant = 'primary', size, style, ...props }) => {
@@ -29,7 +32,10 @@ const Button = ({ variant = 'primary', size, style, ...props }) => {
   const textStyle = [styles.text, variant === 'primary' && styles.textPrimary];
 
   return (
-    <Pressable style={buttonStyle} {...props}>
+    <Pressable
+      style={({ pressed }) => [buttonStyle, pressed && styles.pressed]}
+      {...props}
+    >
       <Text style={textStyle}>{props.children}</Text>
     </Pressable>
   );

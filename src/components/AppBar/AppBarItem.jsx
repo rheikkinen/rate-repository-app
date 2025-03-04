@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
     padding: 12,
   },
   pressed: {
-    backgroundColor: theme.colors.pressed,
+    backgroundColor: theme.colors.background.pressed,
   },
   active: {
     backgroundColor: theme.colors.secondary,

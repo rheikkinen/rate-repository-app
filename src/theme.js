@@ -7,9 +7,9 @@ const theme = {
     textError: 'red',
     primary: '#0366d6',
     secondary: '#aad2ff',
-    pressed: '#7cb0ff',
     background: {
       primary: '#ededed',
+      pressed: '#7cb0ff',
     },
   },
   fontSizes: {
