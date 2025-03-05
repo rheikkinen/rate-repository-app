@@ -30,18 +30,6 @@ const styles = StyleSheet.create({
     height: 64,
     fontSize: 18,
   },
-  submitButton: {
-    height: 64,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderRadius: 8,
-    backgroundColor: theme.colors.primary,
-  },
-  buttonLabel: {
-    color: 'white',
-    fontSize: 18,
-    fontWeight: theme.fontWeights.bold,
-  },
   error: {
     color: theme.colors.textError,
     marginVertical: 4,
