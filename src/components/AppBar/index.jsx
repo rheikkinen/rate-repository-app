@@ -25,12 +25,15 @@ const AppBar = () => {
           <AppBarItem path={'/signin'}>Sign in</AppBarItem>
         )}
         {currentUser && !loading && (
-          <AppBarItem
-            textStyle={{ color: theme.colors.textError }}
-            onPress={signOut}
-          >
-            Sign out
-          </AppBarItem>
+          <>
+            <AppBarItem path={'/create-review'}>Create a review</AppBarItem>
+            <AppBarItem
+              textStyle={{ color: theme.colors.textError }}
+              onPress={signOut}
+            >
+              Sign out
+            </AppBarItem>
+          </>
         )}
       </ScrollView>
     </View>
