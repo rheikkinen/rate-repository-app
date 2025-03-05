@@ -48,7 +48,7 @@ const RepositoryReview = ({ review }) => {
           </Text>
         </View>
       </View>
-      <Text>{review.text}</Text>
+      {review.text && <Text>{review.text}</Text>}
     </View>
   );
 };
