@@ -43,7 +43,8 @@ const AppBarItem = ({ children, onPress, path, textStyle }) => {
       <Text
         style={textStyle}
         color={currentPath === path ? 'primary' : 'textPrimary'}
-        fontSize={'heading'}
+        fontSize={'subheading'}
+        fontWeight={'bold'}
       >
         {children}
       </Text>

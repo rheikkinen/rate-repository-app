@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
   repositoryCard: {
     display: 'flex',
     backgroundColor: 'white',
-    gap: 8,
+    gap: 4,
     padding: 12,
   },
   topContent: {
@@ -70,7 +70,7 @@ const RepositoryItem = ({ item, showButton = false }) => {
             {item.fullName}
           </Text>
           <Text style={styles.description} color={'textSecondary'}>
-            {item.description}
+            {item.description || 'No description'}
           </Text>
           <Text style={styles.languageTag}>{item.language}</Text>
         </View>
