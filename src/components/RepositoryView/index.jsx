@@ -40,10 +40,20 @@ const RepositoryView = () => {
       </View>
     );
 
-  const { repository } = data;
-  const { edges: reviews } = repository.reviews;
+  if (error)
+    return (
+      <View>
+        <Text>Error loading repository details.</Text>
+      </View>
+    );
 
-  const reviewNodes = reviews ? reviews.map((review) => review.node) : [];
+  const { repository } = data;
+
+  const reviews = repository?.reviews;
+
+  const reviewNodes = reviews?.edges
+    ? reviews.edges.map((review) => review.node)
+    : [];
 
   return (
     <FlatList
@@ -69,6 +79,11 @@ const RepositoryView = () => {
       }
       ItemSeparatorComponent={ItemSeparator}
       keyExtractor={({ id }) => id}
+      ListEmptyComponent={
+        <View style={{ paddingHorizontal: 8 }}>
+          <Text>No reviews yet.</Text>
+        </View>
+      }
       renderItem={({ item }) => <RepositoryReview review={item} />}
       ListFooterComponent={<ListFooter />}
     />
