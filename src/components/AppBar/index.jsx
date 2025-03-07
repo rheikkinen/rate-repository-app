@@ -22,7 +22,10 @@ const AppBar = () => {
       <ScrollView horizontal contentContainerStyle={{ flexGrow: 1 }}>
         <AppBarItem path={'/'}>Repositories</AppBarItem>
         {!currentUser && !loading && (
-          <AppBarItem path={'/signin'}>Sign in</AppBarItem>
+          <>
+            <AppBarItem path={'/signin'}>Sign in</AppBarItem>
+            <AppBarItem path={'/signup'}>Sign up</AppBarItem>
+          </>
         )}
         {currentUser && !loading && (
           <>
