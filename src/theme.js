@@ -9,6 +9,7 @@ const theme = {
     secondary: '#aad2ff',
     background: {
       primary: '#ededed',
+      secondary: '#f5f5f5',
       pressed: '#7cb0ff',
     },
   },
