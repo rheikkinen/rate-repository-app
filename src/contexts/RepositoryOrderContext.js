@@ -1,5 +1,5 @@
 import { createContext } from 'react';
 
-const RepositoryOrderContext = createContext();
+const RepositoryFilterContext = createContext();
 
-export default RepositoryOrderContext;
+export default RepositoryFilterContext;

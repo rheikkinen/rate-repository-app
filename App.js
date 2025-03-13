@@ -5,7 +5,7 @@ import Main from './src/components/Main';
 import AuthStorageContext from './src/contexts/AuthStorageContext';
 import createApolloClient from './src/utils/apolloClient';
 import AuthStorage from './src/utils/authStorage';
-import { RepositoryOrderProvider } from './src/utils/RepositoryOrderProvider';
+import { RepositoryFilterProvider } from './src/utils/RepositoryFilterProvider';
 
 const authStorage = new AuthStorage();
 const apolloClient = createApolloClient(authStorage);
@@ -16,9 +16,9 @@ export default function App() {
       <NativeRouter>
         <ApolloProvider client={apolloClient}>
           <AuthStorageContext.Provider value={authStorage}>
-            <RepositoryOrderProvider>
+            <RepositoryFilterProvider>
               <Main />
-            </RepositoryOrderProvider>
+            </RepositoryFilterProvider>
           </AuthStorageContext.Provider>
         </ApolloProvider>
       </NativeRouter>

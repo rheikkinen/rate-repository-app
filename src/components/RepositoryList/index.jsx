@@ -1,10 +1,10 @@
-import useOrder from '../../hooks/useOrder';
+import useRepositoryFilter from '../../hooks/useRepositoryFilter';
 import useRepositories from '../../hooks/useRepositories';
 import RepositoryListContainer from './RepositoryListContainer';
 
 const RepositoryList = () => {
-  const { order } = useOrder();
-  const { repositories } = useRepositories(order);
+  const { state } = useRepositoryFilter();
+  const { repositories } = useRepositories(state);
 
   return <RepositoryListContainer repositories={repositories} />;
 };
