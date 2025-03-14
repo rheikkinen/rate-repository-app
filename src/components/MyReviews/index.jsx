@@ -1,18 +1,16 @@
 import { useQuery } from '@apollo/client';
 import { FlatList, StyleSheet, View } from 'react-native';
-import { useParams } from 'react-router-native';
-import { GET_REPOSITORY } from '../../graphql/queries';
-import theme from '../../theme';
-import RepositoryItem from '../RepositoryItem';
+import { ME } from '../../graphql/queries';
 import RepositoryReview from '../RepositoryReview';
 import Text from '../Text';
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'white',
+    paddingBlockStart: 12,
   },
   listHeader: {
     margin: 8,
+    paddingBlockStart: 8,
   },
   separator: {
     height: 12,
@@ -26,57 +24,40 @@ const ItemSeparator = () => <View style={styles.separator} />;
 
 const ListFooter = () => <View style={styles.footer} />;
 
-const RepositoryView = () => {
-  const { id } = useParams();
-  const { data, error, loading } = useQuery(GET_REPOSITORY, {
-    variables: { id },
+const MyReviews = () => {
+  const { data, error, loading } = useQuery(ME, {
     fetchPolicy: 'cache-and-network',
+    variables: {
+      includeReviews: true,
+    },
   });
 
   if (loading)
     return (
       <View>
-        <Text>Loading repository details...</Text>
+        <Text>Loading reviews...</Text>
       </View>
     );
 
   if (error)
     return (
       <View>
-        <Text>Error loading repository details.</Text>
+        <Text>Error loading reviews.</Text>
       </View>
     );
 
-  const { repository } = data;
-
-  const reviews = repository?.reviews;
+  const reviews = data?.me?.reviews;
 
   const reviewNodes = reviews?.edges
     ? reviews.edges.map((review) => review.node)
     : [];
 
+  console.log('REVIEW NODES', reviewNodes);
+
   return (
     <FlatList
       style={styles.container}
       data={reviewNodes}
-      ListHeaderComponent={
-        <View>
-          <RepositoryItem item={repository} showButton />
-          <View
-            style={{
-              height: 8,
-              backgroundColor: theme.colors.background.primary,
-            }}
-          />
-          <Text
-            fontWeight={'bold'}
-            fontSize={'subheading'}
-            style={styles.listHeader}
-          >
-            Reviews
-          </Text>
-        </View>
-      }
       ItemSeparatorComponent={ItemSeparator}
       keyExtractor={({ id }) => id}
       ListEmptyComponent={
@@ -84,10 +65,12 @@ const RepositoryView = () => {
           <Text>No reviews yet.</Text>
         </View>
       }
-      renderItem={({ item }) => <RepositoryReview review={item} />}
+      renderItem={({ item }) => (
+        <RepositoryReview review={item} showRepositoryInfo />
+      )}
       ListFooterComponent={<ListFooter />}
     />
   );
 };
 
-export default RepositoryView;
+export default MyReviews;

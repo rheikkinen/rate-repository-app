@@ -29,6 +29,7 @@ const AppBar = () => {
         )}
         {currentUser && !loading && (
           <>
+            <AppBarItem path={'/my-reviews'}>My reviews</AppBarItem>
             <AppBarItem path={'/create-review'}>Create a review</AppBarItem>
             <AppBarItem
               textStyle={{ color: theme.colors.textError }}
