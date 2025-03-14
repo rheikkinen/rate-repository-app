@@ -10,26 +10,34 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
+    elevation: 2,
+  },
+  backgroundDanger: {
+    backgroundColor: theme.colors.textError,
   },
   large: {
-    height: 64,
+    height: 50,
   },
   text: {
-    fontSize: 18,
+    fontSize: theme.fontSizes.subheading,
     fontFamily: theme.fonts.main,
     fontWeight: theme.fontWeights.bold,
-  },
-  textPrimary: {
     color: 'white',
   },
+
   pressed: {
     backgroundColor: theme.colors.background.pressed,
   },
 });
 
 const Button = ({ variant = 'primary', size, style, ...props }) => {
-  const buttonStyle = [styles.button, size === 'large' && styles.large, style];
-  const textStyle = [styles.text, variant === 'primary' && styles.textPrimary];
+  const buttonStyle = [
+    styles.button,
+    size === 'large' && styles.large,
+    variant === 'danger' && styles.backgroundDanger,
+    style,
+  ];
+  const textStyle = [styles.text];
 
   return (
     <Pressable
