@@ -52,8 +52,6 @@ const MyReviews = () => {
     ? reviews.edges.map((review) => review.node)
     : [];
 
-  console.log('REVIEW NODES', reviewNodes);
-
   return (
     <FlatList
       style={styles.container}
