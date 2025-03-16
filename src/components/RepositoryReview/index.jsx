@@ -1,6 +1,10 @@
+import { useMutation } from '@apollo/client';
 import { format } from 'date-fns';
-import { StyleSheet, View } from 'react-native';
+import { Alert, StyleSheet, View } from 'react-native';
+import { useNavigate } from 'react-router-native';
+import { DELETE_REVIEW } from '../../graphql/mutations';
 import theme from '../../theme';
+import Button from '../Button';
 import Text from '../Text';
 
 const styles = StyleSheet.create({
@@ -40,9 +44,81 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: theme.colors.primary,
   },
+  footer: {
+    paddingTop: 4,
+    paddingHorizontal: 12,
+    paddingBottom: 12,
+    flexDirection: 'row',
+    gap: 12,
+  },
+  footerAction: {
+    flexGrow: 1,
+  },
 });
 
-const RepositoryReview = ({ review, showRepositoryInfo = false }) => {
+const ReviewFooter = ({ review, refetchReviews }) => {
+  const navigateTo = useNavigate();
+  const [mutate] = useMutation(DELETE_REVIEW);
+
+  const handleDelete = async () => {
+    try {
+      await mutate({
+        variables: { deleteReviewId: review.id },
+      });
+
+      refetchReviews();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const confirmDeleteAlert = () => {
+    Alert.alert(
+      'Delete review?',
+      'This action cannot be undone.',
+      [
+        {
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel',
+        },
+        {
+          text: 'Delete',
+          onPress: handleDelete,
+          style: 'destructive',
+        },
+      ],
+      {
+        cancelable: true,
+      }
+    );
+  };
+
+  return (
+    <View style={styles.footer}>
+      <Button
+        style={styles.footerAction}
+        onPress={() => navigateTo(`/repositories/${review.repository.id}`)}
+      >
+        View repository
+      </Button>
+      <Button
+        style={styles.footerAction}
+        variant='danger'
+        onPress={confirmDeleteAlert}
+      >
+        Delete review
+      </Button>
+    </View>
+  );
+};
+
+const RepositoryReview = ({
+  review,
+  refetchReviews,
+  showRepositoryInfo = false,
+  showActions = false,
+}) => {
   return (
     <View style={styles.container}>
       {showRepositoryInfo && (
@@ -70,6 +146,9 @@ const RepositoryReview = ({ review, showRepositoryInfo = false }) => {
         </View>
         {review.text && <Text>{review.text}</Text>}
       </View>
+      {showActions && (
+        <ReviewFooter review={review} refetchReviews={refetchReviews} />
+      )}
     </View>
   );
 };

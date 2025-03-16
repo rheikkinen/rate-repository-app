@@ -25,7 +25,7 @@ const ItemSeparator = () => <View style={styles.separator} />;
 const ListFooter = () => <View style={styles.footer} />;
 
 const MyReviews = () => {
-  const { data, error, loading } = useQuery(ME, {
+  const { data, error, loading, refetch } = useQuery(ME, {
     fetchPolicy: 'cache-and-network',
     variables: {
       includeReviews: true,
@@ -64,7 +64,12 @@ const MyReviews = () => {
         </View>
       }
       renderItem={({ item }) => (
-        <RepositoryReview review={item} showRepositoryInfo />
+        <RepositoryReview
+          review={item}
+          refetchReviews={refetch}
+          showRepositoryInfo
+          showActions
+        />
       )}
       ListFooterComponent={<ListFooter />}
     />
