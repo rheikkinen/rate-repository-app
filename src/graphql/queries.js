@@ -2,11 +2,15 @@ import { gql } from '@apollo/client';
 
 export const GET_REPOSITORIES = gql`
   query (
+    $first: Int
+    $after: String
     $orderBy: AllRepositoriesOrderBy
     $orderDirection: OrderDirection
     $searchKeyword: String
   ) {
     repositories(
+      first: $first
+      after: $after
       orderBy: $orderBy
       orderDirection: $orderDirection
       searchKeyword: $searchKeyword
@@ -23,6 +27,12 @@ export const GET_REPOSITORIES = gql`
           ratingAverage
           language
         }
+        cursor
+      }
+      pageInfo {
+        endCursor
+        startCursor
+        hasNextPage
       }
     }
   }
