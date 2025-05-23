@@ -73,7 +73,7 @@ const RepositoryListHeader = () => {
   );
 };
 
-const RepositoryListContainer = ({ repositories }) => {
+const RepositoryListContainer = ({ repositories, onEndReached }) => {
   const navigateTo = useNavigate();
 
   const repositoryNodes = repositories
@@ -86,6 +86,8 @@ const RepositoryListContainer = ({ repositories }) => {
       data={repositoryNodes}
       ListHeaderComponent={RepositoryListHeader}
       ItemSeparatorComponent={ItemSeparator}
+      onEndReached={onEndReached}
+      onEndReachedThreshold={0.5}
       renderItem={({ item }) => (
         <Pressable onPress={() => navigateTo(`/repositories/${item.id}`)}>
           <RepositoryItem item={item} />
