@@ -52,7 +52,9 @@ const RepositoryView = () => {
   const reviews = repository?.reviews;
 
   const reviewNodes = reviews?.edges
-    ? reviews.edges.map((review) => review.node)
+    ? reviews.edges
+        .map((review) => review.node)
+        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     : [];
 
   return (
