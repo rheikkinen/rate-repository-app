@@ -28,8 +28,14 @@ const ListFooter = () => <View style={styles.footer} />;
 
 const RepositoryView = () => {
   const { id } = useParams();
-  const { data, error, loading } = useQuery(GET_REPOSITORY, {
-    variables: { id },
+
+  const variables = {
+    id,
+    first: 8,
+  };
+
+  const { data, error, loading, fetchMore } = useQuery(GET_REPOSITORY, {
+    variables,
     fetchPolicy: 'cache-and-network',
   });
 
@@ -51,10 +57,27 @@ const RepositoryView = () => {
 
   const reviews = repository?.reviews;
 
+  const handleFetchMore = () => {
+    const canFetchMore = !loading && reviews?.pageInfo.hasNextPage;
+
+    if (!canFetchMore) {
+      return;
+    }
+
+    fetchMore({
+      variables: {
+        after: reviews.pageInfo.endCursor,
+        ...variables,
+      },
+    });
+  };
+
+  const onEndReach = () => {
+    handleFetchMore();
+  };
+
   const reviewNodes = reviews?.edges
-    ? reviews.edges
-        .map((review) => review.node)
-        .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    ? reviews.edges.map((review) => review.node)
     : [];
 
   return (
@@ -88,6 +111,7 @@ const RepositoryView = () => {
       }
       renderItem={({ item }) => <RepositoryReview review={item} />}
       ListFooterComponent={<ListFooter />}
+      onEndReached={onEndReach}
     />
   );
 };
